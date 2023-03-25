@@ -3,11 +3,20 @@ function Node(value = null, left= null, right=null) {
 }
 
 function Tree(array){
-    this.root = this.buildTree(array);
+    this.root = buildTree(array);
 
     function buildTree(array){
         if(array.length === 0){
-            return []
+            return;
+        }
+        let node = new Node(array[0])
+        let temp = new Node();
+        for(i = 1 i < array.length; i++){
+            if (array[i] < node.value){
+                while(node.left === null){
+
+                }
+            }
         }
     }
 }
