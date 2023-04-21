@@ -4,6 +4,7 @@ function Node(value = null, left = null, right = null) {
 
 function Tree(array) {
     this.root = buildTree(array);
+    let tag = this.root;
 
     function buildTree(array) {
         if (array.length === 0) {
@@ -15,7 +16,22 @@ function Tree(array) {
         return root;
     }
 
-    const prettyPrint = (node, prefix = '', isLeft = true) => {
+    function insert(newValue, root = tag){
+        if(root === null){
+            return new Node(newValue);
+        }
+        if (newValue === root.value){
+            return root;
+        }
+        if (root.value < newValue){
+            root.right = this.insert(newValue, root.right);
+         } else if ( root.value > newValue){
+            root.left = this.insert(newValue, root.left);
+        }
+        return root;
+    }
+
+    const prettyPrint = (node = tag, prefix = '', isLeft = true) => {
         if (node === null) {
             return;
         }
@@ -27,16 +43,17 @@ function Tree(array) {
             prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
         }
     }
-    console.log(this.root);
-    prettyPrint(this.root);
-    
- 
+
+    return {tag, prettyPrint, insert}
 }
 
 
 
 //testing area
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
+tree.insert(21);
+tree.prettyPrint()
+
 
 
 
