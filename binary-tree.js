@@ -31,6 +31,41 @@ function Tree(array) {
         return root;
     }
 
+    function deleteNode(oldValue, root = tag){
+        
+        if (root === null){
+            console.log("1")
+            return root;
+        }
+        if (root.value < oldValue){
+            console.log("2")
+            root.right = deleteNode(oldValue, root.right);
+        } else if (root.value > oldValue){
+            console.log("3")
+            root.left= deleteNode(oldValue, root.left);
+        } else {
+            if (root.left === null){
+                console.log("4")
+                return root.right;
+            } else if (root.right === null){
+                console.log("5")
+                return root.left;
+            }
+            root.value = minValue(root.right);
+            root.right = deleteNode(oldValue, root.right)
+        }
+        return root;
+    }
+
+    function minValue(root){
+        let minv = root.value;
+        while(root.left != null){
+            minv = root.left.value;
+            root = root.left
+        }
+        return minv;
+    }
+
     const prettyPrint = (node = tag, prefix = '', isLeft = true) => {
         if (node === null) {
             return;
@@ -44,7 +79,7 @@ function Tree(array) {
         }
     }
 
-    return {tag, prettyPrint, insert}
+    return {tag, prettyPrint, insert, deleteNode}
 }
 
 
@@ -52,7 +87,9 @@ function Tree(array) {
 //testing area
 const tree = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 tree.insert(21);
+tree.deleteNode(9);
 tree.prettyPrint()
+
 
 
 
