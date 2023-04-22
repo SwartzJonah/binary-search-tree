@@ -66,6 +66,18 @@ function Tree(array) {
         return minv;
     }
 
+    function find(findValue, root = tag){
+        if(root.value === findValue){
+            return root;
+        }
+        if (root.value > findValue){
+            return this.find(findValue, root.left)
+        }
+        if (root.value < findValue){
+            return this.find(findValue, root.right)
+        }
+    }
+
     const prettyPrint = (node = tag, prefix = '', isLeft = true) => {
         if (node === null) {
             return;
@@ -79,7 +91,7 @@ function Tree(array) {
         }
     }
 
-    return {tag, prettyPrint, insert, deleteNode}
+    return {tag, prettyPrint, insert, deleteNode, find}
 }
 
 
